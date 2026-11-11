@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página no encontrada – LBB Abogados</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" type="image/png" href="assets/img/favicon.png" data-ruta="assets/img/favicon.png">
+<!-- Esta página se puede servir desde cualquier ruta, así que lleva su estilo dentro. -->
+<style>
+  html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 48px 24px; box-sizing: border-box; background: #0a0a0a; color: #fbfafc; font-family: "Satoshi", Arial, sans-serif; font-weight: 500; text-align: center; }
+  img { width: 202px; height: 91px; object-fit: contain; color: #e17d8d; font-size: 24px; }
+  h1 { margin: 0; font-size: 44px; line-height: 1.1; letter-spacing: -.05em; font-weight: 500; }
+  p { margin: 0; max-width: 28em; font-size: 18px; line-height: 1.5; letter-spacing: -.02em; color: #999; }
+  a.volver { display: inline-block; padding: 14px 24px; border-radius: 999px; background: #fbfafc; color: #0a0a0a; font-size: 16px; line-height: 18px; letter-spacing: -.02em; text-decoration: none; }
+  a.volver:hover { background: #e17d8d; }
+  a:focus-visible { outline: 2px solid #fbfafc; outline-offset: 3px; }
+</style>
+<link rel="stylesheet" href="assets/css/estilos.css" data-ruta="assets/css/estilos.css">
+</head>
+<body>
+<img src="assets/img/logo-lbb.webp" data-ruta="assets/img/logo-lbb.webp" alt="LBB Abogados" width="789" height="337">
+<main>
+  <h1>Página no encontrada</h1>
+</main>
+<p>La dirección que has abierto no existe o ha cambiado.</p>
+<a class="volver" id="inicio" href="/">Volver a la portada</a>
+<script>
+/* Esta página se puede servir desde cualquier ruta. Busca dónde está la portada (la carpeta
+   que tiene assets/css/estilos.css) y corrige el enlace, la hoja de estilos y el logotipo. */
+(function () {
+  if (!window.fetch) { return; }
+  var partes = location.pathname.replace(/[^\/]*$/, '').split('/').filter(Boolean), bases = [];
+  for (var i = partes.length; i >= 0; i--) { bases.push('/' + partes.slice(0, i).join('/') + (i ? '/' : '')); }
+  (function probar(k) {
+    if (k >= bases.length) { return; }
+    fetch(bases[k] + 'assets/css/estilos.css', { method: 'HEAD' }).then(function (r) {
+      if (!r.ok) { return probar(k + 1); }
+      document.getElementById('inicio').href = bases[k];
+      if (k === 0) { return; } /* las rutas relativas ya valen */
+      Array.prototype.forEach.call(document.querySelectorAll('[data-ruta]'), function (el) {
+        el[el.tagName === 'IMG' ? 'src' : 'href'] = bases[k] + el.getAttribute('data-ruta');
+      });
+    }).catch(function () { probar(k + 1); });
+  })(0);
+})();
+</script>
+</body>
+</html>

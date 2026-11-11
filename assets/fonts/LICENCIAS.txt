@@ -1,0 +1,15 @@
+Tipografías de la web de LBB Abogados (alojadas aquí, sin modificar)
+====================================================================
+
+Satoshi (400, 500 y 700) — Indian Type Foundry
+  Origen: Fontshare, https://www.fontshare.com/fonts/satoshi (archivos .woff2 oficiales, descargados el 11/11/2026).
+  Licencia: ITF Free Font License (FFL) 2.0, https://www.fontshare.com/licenses/itf-ffl
+  Permite el uso comercial en webs y alojar los archivos en el servidor propio con @font-face.
+  No permite modificarlos (tampoco recortarlos ni cambiarles el formato) ni redistribuirlos:
+  quien los quiera para otro proyecto los descarga de Fontshare.
+
+Instrument Serif Italic — The Instrument Serif Project Authors
+  Origen: Google Fonts (subconjunto latino, .woff2), https://fonts.google.com/specimen/Instrument+Serif
+  Licencia: SIL Open Font License 1.1 (texto completo en OFL-Instrument-Serif.txt).
+
+Inter: la web original la cargaba, pero ningún texto visible la usaba. No se incluye.

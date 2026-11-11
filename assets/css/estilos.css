@@ -1,0 +1,259 @@
+/* LBB Abogados — sitio estático (HTML + CSS + un mínimo de JS, sin compilación).
+   Medidas, colores y tipografías tomados de la web anterior el 11/11/2026.
+   Cortes: escritorio ≥ 1200 px · tableta 810–1199 px · móvil ≤ 809 px. */
+
+/* ---------- Fuentes (alojadas aquí, nada de terceros) ---------- */
+@font-face { font-family: "Satoshi"; src: url("../fonts/satoshi-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../fonts/satoshi-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../fonts/satoshi-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("../fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+/* Sustitutas con las mismas métricas, para que no salte el texto mientras cargan */
+@font-face { font-family: "Satoshi Sustituta"; src: local("Arial"); ascent-override: 102.23%; descent-override: 24.29%; line-gap-override: 10.12%; size-adjust: 98.8%; }
+@font-face { font-family: "Instrument Serif Sustituta"; src: local("Times New Roman"); ascent-override: 117.87%; descent-override: 36.91%; line-gap-override: 0%; size-adjust: 83.99%; }
+
+/* ---------- Base ---------- */
+:root {
+  --fondo: #0a0a0a;
+  --tarjeta: #0d0d0d;
+  --blanco: #fbfafc;
+  --gris: #999;
+  --rosa: #e17d8d;
+  --borde: rgba(255, 255, 255, .1);
+  --sans: "Satoshi", "Satoshi Sustituta", sans-serif;
+  --serif: "Instrument Serif", "Instrument Serif Sustituta", serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { margin: 0; background: var(--fondo); color: var(--blanco); font-family: var(--sans); font-weight: 500; }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--blanco); outline-offset: 3px; border-radius: 4px; }
+
+.oculto { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+.saltar { position: absolute; left: 16px; top: -100px; z-index: 10; padding: 12px 16px; border-radius: 8px; background: var(--blanco); color: var(--fondo); font-size: 16px; text-decoration: none; }
+.saltar:focus { top: 16px; }
+
+/* Todo el contenido va sobre el pie, que se descubre al llegar al final */
+.pagina { position: relative; z-index: 2; background: var(--fondo); border-radius: 0 0 96px 96px; box-shadow: 0 32px 64px 24px var(--fondo); }
+
+/* ---------- Piezas comunes ---------- */
+.logo { display: block; width: 258px; height: 116px; object-fit: contain; }
+
+.titulo { width: 100%; font-size: 70px; line-height: 1.2; letter-spacing: -.05em; font-weight: 500; text-align: center; white-space: pre-wrap; }
+.titulo em, .hero__titulo em { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.titulo--serif { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.titulo--serif .sans { font-family: var(--sans); font-style: normal; font-weight: 500; }
+.titulo--suelto { letter-spacing: normal; }
+.titulo--suelto .sans { letter-spacing: -.05em; }
+
+.texto { width: 100%; font-size: 22px; line-height: 1.5; letter-spacing: -.02em; color: var(--gris); text-align: center; text-wrap: balance; white-space: pre-wrap; }
+
+.cabecera-seccion { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; max-width: 1200px; }
+
+.boton { display: inline-flex; align-items: center; justify-content: center; padding: 24px 48px; border-radius: 999px; background: var(--rosa); color: var(--blanco); font-size: 21px; line-height: 20px; letter-spacing: -.02em; font-weight: 500; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 10px -2px rgba(0, 0, 0, .05), 0 2px 2px -1px rgba(0, 0, 0, .1), 0 0 0 1px rgba(98, 20, 217, .12); transition: filter .2s ease; }
+.boton:hover { filter: brightness(1.07); }
+.boton:focus-visible { border-radius: 999px; }
+
+/* Filo de luz solo por arriba, como en el original */
+.con-filo { position: relative; }
+.con-filo::after { content: ""; position: absolute; inset: 0; border-top: 1px solid var(--borde); border-radius: inherit; pointer-events: none; }
+
+/* ---------- Cabecera de la portada ---------- */
+.hero { display: flex; justify-content: center; padding: 64px; }
+.hero__caja { display: flex; flex-direction: column; align-items: center; gap: 32px; width: 100%; max-width: 1200px; padding: 64px 0 40px; text-align: center; }
+.hero__titulo { width: 100%; max-width: 952px; font-size: 110px; line-height: .9; letter-spacing: -.05em; font-weight: 500; white-space: pre-wrap; }
+.hero__titulo em { color: var(--rosa); }
+.hero__sub { width: 100%; font-size: 36px; line-height: 1.3; letter-spacing: -.02em; font-weight: 500; white-space: pre-wrap; }
+.hero__sub strong, .hero__texto strong { font-weight: 700; }
+.hero__texto { width: 100%; font-size: 28px; line-height: 1.5; letter-spacing: -.02em; color: var(--gris); text-wrap: balance; white-space: pre-wrap; }
+
+/* ---------- Vídeo (YouTube solo al pulsar) ---------- */
+.video { padding: 64px; }
+.video__marco { position: relative; height: 603px; border-radius: 48px; overflow: hidden; background: #000; }
+.video__enlace { position: absolute; inset: 0; display: block; }
+.video__enlace:focus-visible { outline-offset: -6px; border-radius: 48px; }
+.video__enlace img { width: 100%; height: 100%; object-fit: cover; }
+.video__play { position: absolute; top: 50%; left: 50%; width: 68px; height: 48px; transform: translate(-50%, -50%); }
+.video__play svg { display: block; width: 100%; height: 100%; }
+.video__play .fondo { fill: #212121; fill-opacity: .8; transition: fill .1s ease-in, fill-opacity .1s ease-in; }
+.video__enlace:hover .fondo, .video__enlace:focus-visible .fondo { fill: #f00; fill-opacity: 1; }
+.video__marco iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ---------- En qué puedo ayudarte ---------- */
+.servicios { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 0 64px; }
+.servicios__caja { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; max-width: 1200px; padding: 64px 48px; border-radius: 50px; background: linear-gradient(#0d0d0d, #0a0a0a); }
+.entradilla { width: 100%; font-size: 28px; line-height: 1.3; letter-spacing: -.02em; font-weight: 500; text-align: center; white-space: pre-wrap; }
+.servicios__lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; width: 100%; max-width: 976px; }
+.servicio { display: flex; flex-direction: column; align-items: center; padding: 48px; text-align: center; }
+.servicio img { width: 65px; height: 65px; margin-bottom: 16px; }
+.servicio h3 { margin-bottom: 16px; font-size: 28px; line-height: 1; letter-spacing: -.02em; font-weight: 500; }
+.servicio p { font-size: 18px; line-height: 1.5; letter-spacing: -.02em; color: var(--gris); text-wrap: balance; white-space: pre-wrap; }
+.servicio:nth-child(-n+2) img { margin-bottom: 24px; }
+.servicio:nth-child(-n+2) p { max-width: 255px; }
+/* Saltos de línea de los títulos, que cambian según el ancho */
+.movil-y-tableta { display: none; }
+
+/* ---------- Reserva (Calendly solo al pulsar) ---------- */
+.reserva { display: flex; flex-direction: column; align-items: center; gap: 64px; padding: 64px; }
+.calendly { position: relative; width: 320px; max-width: 100%; height: 590px; background: #fff; color: #0a0a0a; overflow: hidden; }
+.calendly__aviso { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; height: 100%; padding: 24px; text-align: center; }
+.calendly__icono { width: 44px; height: 44px; color: var(--rosa); }
+.calendly__boton { padding: 15px 22px; background: #0a0a0a; color: var(--blanco); font-size: 16px; line-height: 18px; box-shadow: none; }
+.calendly__boton:hover { filter: none; background: #2a2a2a; }
+.calendly__boton:focus-visible { outline-color: #0a0a0a; }
+.calendly__nota { max-width: 240px; font-size: 13px; line-height: 1.45; letter-spacing: -.01em; color: #555; }
+.calendly iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* ---------- Quien soy ---------- */
+.sobre { display: flex; flex-direction: column; align-items: center; gap: 64px; padding: 64px; }
+.cita { display: flex; align-items: center; width: 100%; max-width: 1000px; min-height: 430px; padding: 120px 48px; border-radius: 24px; background: var(--tarjeta); overflow: hidden; }
+.cita__texto { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 16px; width: 380px; max-width: 100%; }
+.cita__frase { font-size: 36px; line-height: 1.3; letter-spacing: -.02em; font-weight: 500; white-space: pre-wrap; }
+.cita__nota { max-width: 342px; font-size: 12px; line-height: 1.4; letter-spacing: -.02em; color: var(--gris); white-space: pre-wrap; }
+/* El original aplica el degradado dos veces (a la caja y a la foto): se repite para que funda igual */
+.cita__foto { position: absolute; top: 0; right: 0; width: 50%; height: 100%; }
+.cita__foto img { width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.cita__foto, .cita__foto img { -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 80%); mask-image: linear-gradient(to right, transparent 0%, #000 80%); }
+
+/* ---------- Historias reales (cinta de mensajes) ---------- */
+.historias { display: flex; flex-direction: column; align-items: center; gap: 64px; padding: 64px; }
+.cinta-recorte { display: flex; justify-content: center; width: 100%; overflow: hidden; }
+.cinta { flex: none; width: 400px; padding: 10px; overflow: hidden; cursor: pointer; -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%); }
+.cinta:focus-visible { outline-offset: -2px; border-radius: 26px; }
+.cinta__pista { display: flex; gap: 10px; width: max-content; animation: cinta 19.8s linear infinite; }
+.cinta__pista li { flex: none; width: 254px; height: 317px; border-radius: 26px; overflow: hidden; }
+.cinta__pista img { width: 100%; height: 100%; object-fit: contain; }
+.cinta:hover .cinta__pista, .cinta:focus-visible .cinta__pista, .cinta.pausada .cinta__pista { animation-play-state: paused; }
+@keyframes cinta { to { transform: translateX(calc(-50% - 5px)); } }
+
+/* ---------- Preguntas frecuentes ---------- */
+.faq { display: flex; justify-content: center; padding: 64px; }
+.faq__lista { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 800px; }
+.pregunta { border-radius: 12px; background: var(--tarjeta); box-shadow: inset 0 0 0 1px var(--borde); overflow: hidden; }
+.pregunta summary { display: flex; align-items: center; gap: 24px; padding: 18px 20px; font-size: 18px; line-height: 1.5; letter-spacing: -.02em; cursor: pointer; list-style: none; -webkit-user-select: none; user-select: none; }
+.pregunta summary::-webkit-details-marker { display: none; }
+.pregunta summary:focus-visible { outline-offset: -3px; border-radius: 12px; }
+.pregunta__texto { flex: 1 1 0; white-space: pre-wrap; }
+.pregunta__icono { position: relative; flex: none; width: 12px; height: 12px; }
+.pregunta__icono::before, .pregunta__icono::after { content: ""; position: absolute; left: 0; top: 5px; width: 12px; height: 2px; border-radius: 8px; background: var(--blanco); transition: transform .3s ease; }
+.pregunta__icono::after { transform: rotate(90deg); }
+.pregunta[open] .pregunta__icono::after { transform: rotate(0deg); }
+.pregunta__respuesta { padding: 6px 20px 18px; }
+.pregunta__respuesta p { font-size: 16px; line-height: 1.5; letter-spacing: -.02em; font-weight: 400; color: var(--gris); white-space: pre-wrap; }
+/* Apertura suave donde el navegador lo permite; en el resto abre de golpe */
+@supports (interpolate-size: allow-keywords) {
+  .pregunta { interpolate-size: allow-keywords; }
+  .pregunta::details-content { height: 0; overflow: clip; transition: height .3s ease, content-visibility .3s allow-discrete; }
+  .pregunta[open]::details-content { height: auto; }
+}
+
+/* ---------- Pie (se descubre debajo del contenido) ---------- */
+.pie { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 80vh; padding: 64px 64px 32px; background: var(--fondo); overflow: hidden; text-align: center; }
+.js .pie { position: sticky; bottom: 0; }
+.pie__foto { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: left top; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, .8) 24.05%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, .8) 24.05%, transparent 100%); }
+.pie::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 230px; background: linear-gradient(to top, rgba(10, 10, 10, .94) 0%, rgba(10, 10, 10, .8) 55%, rgba(10, 10, 10, 0) 100%); pointer-events: none; }
+.pie__texto { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; max-width: 1200px; font-size: 14px; line-height: 1.35; letter-spacing: -.02em; color: var(--gris); }
+.pie__texto p { text-wrap: balance; }
+.junto { white-space: nowrap; }
+.pie__legal { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 10px; }
+.pie__legal a { display: inline-block; padding: 6px 2px; color: var(--blanco); text-decoration: none; }
+.pie__legal a:hover, .pie__legal a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.pie__legal a[aria-current] { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Páginas legales ---------- */
+.cabecera { display: flex; justify-content: center; padding: 64px 24px 0; }
+.cabecera a { display: block; border-radius: 8px; }
+.legal { width: 100%; max-width: 608px; margin: 0 auto; padding: 56px 24px 112px; }
+.legal__volver { font-size: 16px; line-height: 1.5; letter-spacing: -.02em; }
+.legal__volver a { display: inline-block; padding: 6px 0; color: var(--blanco); text-decoration: none; }
+.legal__volver a:hover, .legal__volver a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.legal h1 { margin: 24px 0 12px; font-size: 56px; line-height: 1.1; letter-spacing: -.05em; font-weight: 500; }
+.legal h2 { margin: 44px 0 12px; font-size: 26px; line-height: 1.25; letter-spacing: -.03em; font-weight: 500; }
+.legal h3 { margin: 32px 0 8px; font-size: 20px; line-height: 1.3; letter-spacing: -.02em; font-weight: 500; }
+.legal p, .legal li { font-size: 17px; line-height: 1.65; letter-spacing: -.01em; font-weight: 400; color: #a8a8a8; overflow-wrap: break-word; }
+.legal p { margin: 0 0 16px; }
+.legal ul, .legal ol { margin: 0 0 16px; padding-left: 22px; }
+.legal ul { list-style: disc; }
+.legal ol { list-style: decimal; }
+.legal li { margin: 0 0 8px; }
+.legal li::marker { color: var(--rosa); }
+.legal strong { font-weight: 700; color: var(--blanco); }
+.legal article a { color: var(--rosa); text-underline-offset: 3px; }
+.legal .fecha { font-size: 15px; color: var(--gris); }
+.legal article + .legal__volver { margin-top: 48px; }
+
+/* ---------- Tableta ---------- */
+@media (max-width: 1199.98px) {
+  .logo { width: 202px; height: 91px; }
+  .titulo { font-size: 60px; }
+  .texto { font-size: 18px; }
+  .hero { padding: 0 32px 64px; }
+  .hero__caja { gap: 24px; }
+  .hero__titulo { max-width: 658px; font-size: 80px; }
+  .hero__texto { font-size: 18px; }
+  .video { padding: 64px 32px; }
+  .servicios { padding: 0 32px; }
+  .reserva { padding: 64px 32px; }
+  .sobre { padding: 64px 32px; gap: 24px; }
+  .cita { width: calc(100% - 64px); margin: 32px; }
+  .cita__nota { max-width: 312px; }
+  .historias { padding: 64px 32px; gap: 24px; }
+  .movil-y-tableta { display: inline; }
+  .legal h1 { font-size: 48px; }
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 809.98px) {
+  .logo { width: 134px; height: 60px; }
+  .titulo { font-size: 40px; text-wrap: balance; }
+  .titulo--suelto { letter-spacing: -.05em; }
+  .texto { font-size: 16px; }
+  .boton { padding: 12px 18px; font-size: 16px; line-height: 18px; }
+  .hero { padding: 0 24px; }
+  .hero__caja { padding: 64px 0; }
+  .hero__titulo { max-width: none; font-size: 42px; text-wrap: balance; }
+  .hero__sub { font-size: 28px; }
+  .hero__texto { font-size: 16px; }
+  .video { padding: 24px; }
+  .video__marco { height: 604px; border-radius: 25px; }
+  .video__enlace:focus-visible { border-radius: 25px; }
+  .servicios { padding: 0 24px; }
+  .servicios__caja { padding: 64px 24px; }
+  .entradilla { font-size: 20px; }
+  .servicios__lista { grid-template-columns: minmax(0, 1fr); }
+  .servicio { padding: 48px 0; }
+  .servicio:nth-child(n+3) { padding: 52px 0; }
+  .servicio p { max-width: 255px; font-size: 16px; }
+  .no-movil { display: none; }
+  .reserva { padding: 64px 24px; }
+  .calendly { width: 315px; height: 582px; }
+  .sobre { padding: 64px 24px; gap: 64px; }
+  .cita { flex-direction: column; align-items: stretch; justify-content: flex-end; width: 100%; min-height: 600px; margin: 0; padding: 120px 24px; }
+  .cita__texto { width: 100%; }
+  .cita__frase { font-size: 28px; }
+  .cita__nota { max-width: 291px; }
+  .cita__foto { left: 0; right: auto; width: 100%; height: 350px; }
+  .cita__foto, .cita__foto img { -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 80%); mask-image: linear-gradient(to top, transparent 0%, #000 80%); }
+  .historias { padding: 64px 24px; }
+  .faq { padding: 64px 24px; }
+  .pie { padding: 64px 24px 16px; }
+  .pie__foto { inset: 0 auto auto 50%; width: auto; height: 120%; aspect-ratio: 5 / 6; transform: translateX(-50%); }
+  .pie::after { height: 300px; }
+  .pie__texto { gap: 6px; font-size: 12px; }
+  .cabecera { padding-top: 64px; }
+  .legal { padding: 40px 24px 96px; }
+  .legal h1 { font-size: 40px; }
+  .legal h2 { margin-top: 36px; font-size: 22px; }
+  .legal p, .legal li { font-size: 16px; }
+}
+
+/* ---------- Quien prefiere menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cinta { overflow-x: auto; cursor: auto; -webkit-mask-image: none; mask-image: none; }
+  .cinta__pista { animation: none; }
+  .cinta__pista li[aria-hidden="true"] { display: none; }
+  .pregunta__icono::before, .pregunta__icono::after, .boton, .video__play .fondo { transition: none; }
+  .pregunta::details-content { transition: none; }
+}
